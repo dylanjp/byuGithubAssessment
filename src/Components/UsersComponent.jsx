@@ -54,7 +54,7 @@ class UsersComponent extends Component {
 
     //The search button was clicked
     searchClicked(){
-        console.log("searchClicked was clicked .... duh")
+        //console.log("searchClicked was clicked .... duh")
         this.setState({userFound:true})
         //Making API call to see if username is valid
         GitHubService.getUsername(this.state.username)
@@ -62,7 +62,7 @@ class UsersComponent extends Component {
             response => {
                 console.log(response)
                 if(response.status !== 200){
-                    console.log("IT FAILED AHHHHHH")
+                    //console.log("IT FAILED AHHHHHH")
                     this.setState({searchFailed:true})
                 }else{
                     this.setState({searchFailed:false})

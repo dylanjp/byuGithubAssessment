@@ -59,7 +59,7 @@ class OrganizationsComponent extends Component {
     }
 
     getBasicInfo(){
-        console.log("getBasicINfo was Activated")
+        //console.log("getBasicINfo was Activated")
         //Gathering Basic org data
         GitHubService.getUsername(this.state.username)
         .then(response => {
@@ -93,7 +93,7 @@ class OrganizationsComponent extends Component {
 
     //The search button was clicked
     searchClicked(){
-        console.log("searchClicked was clicked .... duh")
+        //console.log("searchClicked was clicked .... duh")
         this.setState({userFound:true})
         this.setState({searchFailed:false})
 

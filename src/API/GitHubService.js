@@ -22,10 +22,9 @@ class GitHubService{
 
     //Organization Calls
     getOrganizationDetails(username){
-        console.log('OrganizationCall was Excuted')
+        //console.log('OrganizationCall was Excuted')
         return axios.get(`https://api.github.com/orgs/${username}/members`);
         //return axios.get(`https://api.github.com/users/dylanjp/events/public`); // for email
-        //return axios.get(`https://api.github.com/users/dylanjp`); // for email
     }
 
 }
