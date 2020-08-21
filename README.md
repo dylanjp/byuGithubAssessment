@@ -4,7 +4,7 @@
 2.Inside the project directory run: npm install<br />
 3.Lastly run: npm start<br />
 The project will then automatically open in your browser at "localhost:3000"<br />
-To see a video demostration please vist this link:
+To see a video demostration please vist this link: https://youtu.be/N2fsf3XkV8g
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
