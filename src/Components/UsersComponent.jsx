@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import GitHubService from '../API/GitHubService'
-
+import moment from 'moment'
 
 class UsersComponent extends Component {
 
@@ -21,8 +21,13 @@ class UsersComponent extends Component {
         //bindFunctionsHere
         this.searchClicked = this.searchClicked.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.getRepoCount = this.getRepoCount.bind(this);
+        this.output = this.output.bind(this);
+        this.refresh = this.refresh.bind(this);
     }
+
+    refresh () {
+        this.forceUpdate();
+      }
 
     //Handles the User Input for Search
     handleChange(event) {
@@ -35,21 +40,19 @@ class UsersComponent extends Component {
             )
     }
 
-    //Gets the repo count
-    getRepoCount(username, name) {
 
-        console.log("Trying to get repo count")
-        GitHubService.retrieveRepoCommitCount(username, name)
-        .then(
-            response => {
-                console.log(response)
-            }
-        )
-    
-        return "Zero"
+    //Basically this function is overwritting the forks varabile in this array with the commit count for each repo / To make rendering more smooth
+    //Have to force state to refresh in order to work
+    output(item, index, array){
+        GitHubService.retrieveRepoCommitCount(this.state.gitUsername, item.name)
+        .then(response => {
+            item.forks = response.data.length
+            //console.log("Is this the end?")
+            this.setState( {state: this.state})
+        })
     }
 
-
+    //The search button was clicked
     searchClicked(){
         console.log("searchClicked was clicked .... duh")
         this.setState({userFound:true})
@@ -62,7 +65,6 @@ class UsersComponent extends Component {
                     console.log("IT FAILED AHHHHHH")
                     this.setState({searchFailed:true})
                 }else{
-                    console.log("YOU SAVE HYRULE AND YOU'RE A REAL HERO")
                     this.setState({searchFailed:false})
                     this.setState({name:response.data.name})
                     this.setState({gitUsername:response.data.login})
@@ -73,9 +75,14 @@ class UsersComponent extends Component {
                     .then(
                         response => {
                             console.log(response)
+
+                            response.data.forEach(this.output);              
+
                             this.setState({repos : response.data})
+                            
                         }
-                    ).catch( () => {
+                    )
+                    .catch( () => {
                         console.log('ReposFailed')
                        })
 
@@ -85,7 +92,7 @@ class UsersComponent extends Component {
             console.log('Yousuck')
             this.setState({searchFailed:true})
             this.setState({userFound:false})
-           })
+           })        
     }
 
     render() {
@@ -95,7 +102,7 @@ class UsersComponent extends Component {
             <div className="container">
                 Search:<input type="text" name = "username" value={this.state.username} onChange={this.handleChange}/>
                 <button className="btn btn-success" onClick={this.searchClicked}>Login</button>
-                {this.state.searchFailed && <div className="alert alert-danger">That Username is Invalid</div>} 
+                {this.state.searchFailed && <div className="alert alert-danger">That Username is Invalid or You have exceeded the rate limit</div>} 
             </div>
 
             {this.state.userFound && <div className="User data">
@@ -127,17 +134,17 @@ class UsersComponent extends Component {
                         <thead>
                             <tr>
                                 <th>Repo Name</th>
-                                <th>Number of Commits</th>
                                 <th>Date of Latest Commit</th>
+                                <th>Number of Commits</th>
                             </tr>
                         </thead>
-                        <tbody>{
+                        <tbody className="listofrepos">{
                                     this.state.repos.map(
                                         repos =>
                                         <tr key={repos.id}>
                                             <td>{repos.name}</td>
-                                            <td>{this.getRepoCount(this.state.gitUsername, repos.name)}</td>
-                                            <td>{repos.updated_at}</td>
+                                            <td>{moment(repos.updated_at).format("MM-DD-YYYY")}</td>
+                                            <td>{repos.forks}</td>
                                         </tr>
                                     )
                             }
