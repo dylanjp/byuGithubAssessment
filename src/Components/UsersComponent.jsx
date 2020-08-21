@@ -7,13 +7,13 @@ class UsersComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            username : '',
-            gitUsername : '',
-            name : '',
-            numberOfRepos : '',
-            imageUrl : 'https://avatars3.githubusercontent.com/u/22620281?v=4',
+            username : '',//store input from the user
+            gitUsername : '', //store the actual username you getback from the call (Capitolization)
+            name : '', // The person's actual name
+            numberOfRepos : '', // the number of repos
+            imageUrl : 'https://avatars3.githubusercontent.com/u/22620281?v=4', // avatar picture
 
-            repos : [],
+            repos : [], // array of the user's repos
 
             searchFailed: false,
             userFound: false

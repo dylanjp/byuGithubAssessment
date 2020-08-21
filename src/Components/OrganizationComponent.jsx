@@ -33,6 +33,9 @@ class OrganizationsComponent extends Component {
             )
     }
 
+    //Basically I am making a call for each user to get their real name and email and then I am storing it
+    //In the array of members of the organization. I'm simplying overwritting it in and storing it unused variables
+    //in the array for each memeber
     output(item, index, array){
         GitHubService.getUsername(item.login)
         .then(response => {

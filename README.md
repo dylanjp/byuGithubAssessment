@@ -1,3 +1,12 @@
+## STEPS TO RUN
+
+1.Download the project (Make sure you have Node/NPM installed)<br />
+2.Inside the project directory run: npm install<br />
+3.Lastly run: npm start<br />
+The project will then automatically open in your browser at "localhost:3000"<br />
+To see a video demostration please vist this link:
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
