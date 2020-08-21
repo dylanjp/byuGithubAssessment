@@ -101,7 +101,7 @@ class UsersComponent extends Component {
             <h4>Users</h4>
             <div className="container">
                 Search:<input type="text" name = "username" value={this.state.username} onChange={this.handleChange}/>
-                <button className="btn btn-success" onClick={this.searchClicked}>Login</button>
+                <button className="btn btn-success" onClick={this.searchClicked}>Search</button>
                 {this.state.searchFailed && <div className="alert alert-danger">That Username is Invalid or You have exceeded the rate limit</div>} 
             </div>
 
